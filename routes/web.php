@@ -18,5 +18,6 @@ Route::post('/logout', 'HomeController@logout');
 Route::get('/conta', 'AccountController@index')->middleware('auth');
 Route::get('/leitura', 'ReadController@index')->middleware('auth');
 Route::get('/configuracao', 'SettingsController@index')->middleware('auth');
+Route::post('/configuracao/save', 'SettingsController@save')->middleware('auth');
 Route::get('/leitura/{id}', 'ReadController@post')->middleware('auth');
 // Route::post('/index')->middleware('auth');

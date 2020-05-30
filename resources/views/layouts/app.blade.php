@@ -35,8 +35,9 @@
   <link href="../assets/css/now-ui-kit.css?v=1.3.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/css/chat.css" rel="stylesheet" />
+  <link href="../assets/css/bootoast.css" rel="stylesheet" />
   <link href="../assets/css/style.css" rel="stylesheet" />
- 
+
    <!--   Core JS Files   -->
    <script src="../assets/js/core/jquery.min.js" type="text/javascript"></script>
   <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
@@ -56,6 +57,7 @@
  <script src="{{ asset('js/app.js') }}" defer></script>
  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" type="text/javascript"></script> -->
  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+ <script src="../assets/js/plugins/bootoast.js" type="text/javascript"></script>
 
  <!-- Fonts -->
  <link rel="dns-prefetch" href="//fonts.gstatic.com">
