@@ -30,7 +30,6 @@ class HomeController extends Controller
             $u = User::find($user->id);
             $s = $u->getSuggestionPosts();
             $posts = [];
-            $this->sendWppRequest();
             foreach ($s as $key => $value) {
                 $posts[] = Post::find($value);
             }
