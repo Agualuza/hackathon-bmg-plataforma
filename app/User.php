@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Post;
+use App\UserHabit;
 
 class User extends Authenticatable
 {
@@ -33,6 +35,35 @@ class User extends Authenticatable
 
     public function getPercLimit() {
         return round((1 - ($this->blocked_credit/$this->credit_limit)) * 100);
+    }
+
+    public function getSuggestionPosts() {
+        $posts = Post::all();
+        $selected = 0;
+        $user_habits = UserHabit::where('user_id', $this->id)->get();
+        $habitsArray = [];
+        $postsArray = [];
+
+        foreach ($user_habits as $uh) {
+            $habitsArray[$uh->habit_id] = $uh->score;
+        }
+
+        arsort($habitsArray);
+
+        foreach ($habitsArray as $key => $habit) {
+            foreach ($posts as $post) {
+                
+                if ($selected < 2) {
+                   
+                    if ($post->habit_id == $key) {
+                        $postsArray[] = $post->id;
+                        $selected += 1;
+                    }
+                }
+            }
+        }
+
+        return $postsArray;
     }
     
     /**

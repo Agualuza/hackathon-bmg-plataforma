@@ -48,22 +48,15 @@
                 <div class="card card-round" style="width: 30rem;">
                     <div class="card-body">
                         <div class="col-12">
+                            @foreach ($posts as $post)
                             <div class="card card-post card-round col-5 mx-1">
-                                <img class="card-img-top" src="../assets/img/post2.png">
+                                <img class="card-img-top" src="../assets/img/{{$post->img}}">
                                 <div class="card-body">
-                                    <p class="text-orange post-title">Como organizar as finanças?</p>
+                                    <p class="text-orange post-title">{{ $post->title }}</p>
                                     <a href="leitura/2" class="btn btn-primary">Ler</a>
                                 </div>
                             </div>
-
-                            <div class="card card-post card-round col-5 mx-1">
-                                <img class="card-img-top" src="../assets/img/post3.png">
-                                <div class="card-body">
-                                    <p class="text-orange post-title">Como aumentar o score de crédito?</p>
-                                    <a href="leitura/3" class="btn btn-primary">Ler</a>
-                                </div>
-                            </div>
-                        
+                            @endforeach
                         </div>
                     </div>
                 </div>

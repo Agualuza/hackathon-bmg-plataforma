@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Post;
 
 class HomeController extends Controller
 {
@@ -25,7 +26,15 @@ class HomeController extends Controller
     {   
         if(Auth::user()){
             $user = Auth::user();
-            $data = ["user" => $user];
+            $u = User::find($user->id);
+            $s = $u->getSuggestionPosts();
+            $posts = [];
+            
+            foreach ($s as $key => $value) {
+                $posts[] = Post::find($value);
+            }
+
+            $data = ["user" => $user, "posts" => $posts];
             return view('home.index',$data);
         }
         return view('home.site');
