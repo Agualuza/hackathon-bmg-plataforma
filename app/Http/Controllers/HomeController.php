@@ -25,7 +25,8 @@ class HomeController extends Controller
     {   
         if(Auth::user()){
             $user = Auth::user();
-            return view('home.index');
+            $data = ["user" => $user];
+            return view('home.index',$data);
         }
         return view('home.site');
     }

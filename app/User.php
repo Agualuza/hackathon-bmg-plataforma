@@ -13,6 +13,11 @@ class User extends Authenticatable
     protected $table = 'user';
     protected $plans = ["B" => "Básico", "F" => "Flex", "T" => "Top"];
 
+    public function profile()
+    {
+        return $this->belongsTo('App\Profile');
+    }
+
     public function getPlan() {
         return $this->plans[$this->plan];
     }

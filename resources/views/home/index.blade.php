@@ -8,7 +8,7 @@
             <div class="card-block">
                 <h6 class="m-b-20">Cashback</h6>
                 <div class="card-flex-content">
-                <h2><i class="now-ui-icons loader_refresh"></i></h2><h2 class="text-right"><span>0,75%</span></h2>
+                <h2><i class="now-ui-icons loader_refresh"></i></h2><h2 class="text-right"><span>{{ $user->profile->cashback }}%</span></h2>
                 </div>
                 <div class="card-flex-content">
                     <p style="font-size:14px" class="m-b-0">No programa Volta Pra_Mim</p> 
@@ -22,7 +22,7 @@
             <div class="card-block">
                 <h6 class="m-b-20">Juros</h6>
                 <div class="card-flex-content">
-                <h2><i class="now-ui-icons business_money-coins"></i></h2><h2 class="text-right"><span>15,3%</span></h2>
+                <h2><i class="now-ui-icons business_money-coins"></i></h2><h2 class="text-right"><span>{{ $user->profile->loan }}%</span></h2>
                 </div>
                 <div class="card-flex-content">
                     <p style="font-size:14px" class="m-b-0">a.a em empréstimos pessoais</p> 
@@ -35,6 +35,7 @@
         <div class="card card-graphic card-round" style="width: 30rem;">
             <div class="card-body">
                 <div align="center"><h4 class="card-title text-orange">Seu Perfil</h4></div>
+                <div align="center"><h6 class="card-title text-orange">{{ $user->profile->profile_name }}</h6></div>
                 <div id="canvas-holder" style="width:100%">
                      <canvas id="polar-chart" width="800" height="450"></canvas>
                 </div>
