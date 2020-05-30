@@ -78,15 +78,24 @@
 @section('scripts')
 <script>
     $(document).ready(() => {
-        new Chart(document.getElementById("polar-chart"), {
+    
+    var arrayHabitsScores = [];
+    var arrayHabitsNames = [];
+
+    <?php foreach ($user->user_habit as $value) { ?>
+        arrayHabitsScores.push(<?php echo $value->score?>);
+        arrayHabitsNames.push('<?php echo $value->habit->habit_name?>');
+    <?php } ?>
+   
+    new Chart(document.getElementById("polar-chart"), {
     type: 'polarArea',
     data: {
-      labels: ["Desequilíbrio", "Imediatismo", "Apatia", "Renda insuficiente", "Excesso de autoconfiança","Pressão social"],
+      labels: arrayHabitsNames,
       datasets: [
         {
           label: "Population (millions)",
           backgroundColor: ["#3e95cd73", "#8e5ea273","#9e9e9e73","#3cba9f73","#cddc3973","#c4585073"],
-          data: [7,8,7,5,4,5    ]
+          data: arrayHabitsScores
         }
       ]
     },

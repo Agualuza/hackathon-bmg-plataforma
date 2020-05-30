@@ -18,6 +18,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Profile');
     }
 
+    public function user_habit()
+    {
+        return $this->hasMany('App\UserHabit');
+    }
+
     public function getPlan() {
         return $this->plans[$this->plan];
     }
