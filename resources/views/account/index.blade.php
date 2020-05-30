@@ -30,7 +30,7 @@
                     ?>
                     <div class="card-block">
                         <div class="card-flex-content">
-                        <h4><img src="../assets/img/{{$img}}"></h4><h4 class="text-right text-{{$color}}"><span>R$ <?php echo money_format('%.2n',$t->amount)?></span></h4>
+                        <h4><img src="../assets/img/{{$img}}"></h4><h4 class="text-right text-{{$color}}"><span>R$ {{ $t->amount }}</span></h4>
                         </div>
                         <div class="card-flex-content">
                             <p style="font-size:14px" class="m-b-0 text-{{$color}}">{{ $t->d }}</p>
