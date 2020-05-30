@@ -46,8 +46,8 @@ class HomeController extends Controller
     }
 
     public function sendWppRequest() {
-        $sid    = "ACeb50146bf5bc3a8ee180cf26721a1a93"; 
-        $token  = "147ebea04d9c1594b4a71a8bae0be0b8";
+        $sid    = "AC6fab34eec2226cd5d36f5b4f4a2be49f"; 
+        $token  = "c8a6298f1d7855f38e415feef9671ac5"; 
         $twilio = new Client($sid, $token);
 
         $user = User::find(Auth::user()->id);
@@ -76,7 +76,7 @@ class HomeController extends Controller
         
         
         $message = $twilio->messages 
-                        ->create("whatsapp:+5522998900318", // to 
+                        ->create("whatsapp:+552100000000", // to 
                                 array( 
                                     "from" => "whatsapp:+14155238886",       
                                     "body" => $msg
