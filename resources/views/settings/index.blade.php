@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div align="right" class="mx-1">
+<div align="center" class="mx-1">
     <div class="col-lg-4 col-md-6 col-sm-12 col-12 card style-card card-round card-account mx-1">
         <div class="card-block">
             <h4 align="center" class="card-title text-orange">Configurações</h4>
