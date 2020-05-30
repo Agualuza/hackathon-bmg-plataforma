@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use App\Post;
 use App\UserHabit;
 
@@ -18,6 +20,11 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->belongsTo('App\Profile');
+    }
+
+    public function user_post()
+    {
+        return $this->belongsTo('App\UserPost');
     }
 
     public function user_habit()
@@ -35,6 +42,94 @@ class User extends Authenticatable
 
     public function getPercLimit() {
         return round((1 - ($this->blocked_credit/$this->credit_limit)) * 100);
+    }
+
+    public function saveUserHabit($r,$hid) {
+        $userHabits = $this->user_habit;
+
+        foreach ($userHabits as $uh) {
+            if($uh->habit_id == $hid){
+                $uh->score = round($r);
+                $uh->save();
+            }
+        }
+    }
+
+    public function setHabits(){
+        $this->setImbalance();
+        $this->setImmediacy();
+    }
+
+    public function setImbalance() {
+        $today = date('Y-m-d');
+        $lastMonth = date('Y-m-d',strtotime("last month"));
+        $transactions = DB::table('transaction')
+        ->select(DB::raw('id,transaction_type,transaction_sign,amount,note,cashback_transaction_id, note, DATE(created_at) as d'))
+        ->whereRaw('transaction_status = ? AND user_id = ? AND transaction_type != ? AND created_at BETWEEN ? AND ?',['D',$this->id,'B',$lastMonth,$today])
+        ->get();
+
+        $monthBalance = 0;
+
+        foreach ($transactions as $t) {
+            if($t->transaction_sign == 'P'){
+                $monthBalance += $t->amount;
+            } else {
+                $monthBalance -= $t->amount;
+            }
+        }
+
+        $rate = round($monthBalance/1000);
+        
+        if ($rate == 0){
+            $rate = -1;
+        }
+
+        $rt = 1/$rate;
+        $r = $rt > 0 ? round($rt * 5) : 1 - round($rt * 5);
+        $r = min($r,10);
+        $r = max($r,1);
+
+        $this->saveUserHabit($r,1);
+    }
+
+    public function setImmediacy() {
+        $today = date('Y-m-d');
+        $lastMonth = date('Y-m-d',strtotime("last month"));
+        $transactions = DB::table('transaction')
+        ->select(DB::raw('id,transaction_type,transaction_sign,amount,note,cashback_transaction_id, note, DATE(created_at) as d'))
+        ->whereRaw('transaction_status = ? AND user_id = ? AND transaction_type != ? AND created_at BETWEEN ? AND ?',['D',$this->id,'B',$lastMonth,$today])
+        ->get();
+
+        $monthTotalBalance = 0;
+
+        foreach ($transactions as $t) {
+            if($t->transaction_sign == 'P'){
+                $monthTotalBalance += $t->amount;
+            } 
+        }
+        $rate = ($this->balance/$monthTotalBalance);
+        $r = round(1 - $rate);
+        $r = min($r,10);
+        $r = max($r,1);
+
+        $this->saveUserHabit($r,2);
+
+    }
+
+    public function saveApathy() {
+        $today = date('Y-m-d',strtotime("+1 day"));;
+        $lastMonth = date('Y-m-d',strtotime("last month"));
+        $count = DB::table('user_post')
+        ->select(DB::raw('count(1) as c'))
+        ->whereRaw('user_id = ? AND created_at BETWEEN "?" AND "?"',[$this->id,$lastMonth,$today])
+        ->first();
+
+        $r = 10 - $count->c;
+        $r = round($r);
+        $r = min($r,10);
+        $r = max($r,1);
+
+        $this->saveUserHabit($r,3);
     }
 
     public function getSuggestionPosts() {

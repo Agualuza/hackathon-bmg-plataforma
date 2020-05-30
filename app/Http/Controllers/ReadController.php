@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Post;
-
+use App\UserPost;
+use stdClass;
 
 class ReadController extends Controller
 {   
@@ -23,9 +24,15 @@ class ReadController extends Controller
         $data = [];
 
         if($post){
+                $userPost = new UserPost();
+                $userPost->user_id = Auth::user()->id;
+                $userPost->post_id = $id;
+                $userPost->save();
                 $data["post"] = $post;
         } else {
-            $data["post"] = "Esse conteúdo não existe!";
+            $p = new stdClass;
+            $p->content = "Esse conteúdo não existe!";
+            $data["post"] = $p;
         }
 
             return view("read.post",$data);
