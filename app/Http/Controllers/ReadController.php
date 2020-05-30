@@ -24,10 +24,12 @@ class ReadController extends Controller
         $data = [];
 
         if($post){
+            if(Auth::user()){
                 $userPost = new UserPost();
                 $userPost->user_id = Auth::user()->id;
                 $userPost->post_id = $id;
                 $userPost->save();
+            }
                 $data["post"] = $post;
         } else {
             $p = new stdClass;
