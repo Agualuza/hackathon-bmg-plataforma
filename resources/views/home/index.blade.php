@@ -53,7 +53,7 @@
                                 <img class="card-img-top" src="../assets/img/{{$post->img}}">
                                 <div class="card-body">
                                     <p class="text-orange post-title">{{ $post->title }}</p>
-                                    <a href="leitura/2" class="btn btn-primary">Ler</a>
+                                    <a href="leitura/{{ $post->id }}" class="btn btn-primary">Ler</a>
                                 </div>
                             </div>
                             @endforeach
