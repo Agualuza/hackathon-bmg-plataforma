@@ -32,9 +32,12 @@
             <div align="center"><h3 class="text-orange">Filtro</h3></div>
             <div class="col-8 card card-round card-read over-y-no-x">
                 <div align="left" class="ml-3 mt-5">
+                <form id="form-filter" method="post" action="/leitura">
+                @csrf
+                <input type="hidden" name="filter" value="1"/>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" <?php echo ($filters && array_key_exists(1,$filters) && $filters[1]) ? 'checked' : '' ?> type="checkbox" name="filter1" value="1">
                         Desequilíbrio
                         <span class="form-check-sign">
                             <span class="check"></span>
@@ -43,7 +46,7 @@
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" <?php echo ($filters && array_key_exists(2,$filters) && $filters[2]) ? 'checked' : '' ?> type="checkbox" name="filter2" value="1">
                         Imediatismo
                         <span class="form-check-sign">
                             <span class="check"></span>
@@ -52,7 +55,7 @@
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" <?php echo ($filters && array_key_exists(3,$filters) && $filters[3]) ? 'checked' : '' ?> type="checkbox" name="filter3" value="1">
                         Apatia
                         <span class="form-check-sign">
                             <span class="check"></span>
@@ -61,7 +64,7 @@
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" <?php echo ($filters && array_key_exists(4,$filters) && $filters[4]) ? 'checked' : '' ?> type="checkbox" name="filter4" value="1">
                         Renda insuficiente
                         <span class="form-check-sign">
                             <span class="check"></span>
@@ -70,7 +73,7 @@
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" <?php echo ($filters && array_key_exists(5,$filters) && $filters[5]) ? 'checked' : '' ?> type="checkbox" name="filter5" value="1">
                         Excesso de autoconfiança
                         <span class="form-check-sign">
                             <span class="check"></span>
@@ -79,7 +82,7 @@
                 </div>
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="">
+                        <input class="form-check-input" <?php echo ($filters && array_key_exists(6,$filters) && $filters[6]) ? 'checked' : '' ?> type="checkbox" name="filter6" value="1">
                         Pressão social
                         <span class="form-check-sign">
                             <span class="check"></span>
@@ -87,7 +90,9 @@
                     </label>
                 </div>
                 </div>
-                <div align="center"> <button class="btn btn-primary mt-5">Filtrar</button> </div>
+                <div align="center"> <button onclick="submitForm()" class="btn btn-primary mt-5">Filtrar</button> </div>
+                </form>
+                <div align="center"><a href="leitura"><button class="btn btn-warning mt-2">Limpar filtro</button></a></div>
                 </div>
             </div>
         </div>
@@ -98,5 +103,9 @@
 @endsection
 
 @section('scripts')
-
+<script>
+const submitForm = () => {
+    $("#form-filter").submit();
+}
+</script>
 @endsection

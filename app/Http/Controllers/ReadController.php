@@ -12,10 +12,28 @@ use stdClass;
 
 class ReadController extends Controller
 {   
+    public function index(Request $request) {
+        $filter = $request->input("filter");
+        $array = [];
 
-    public function index() {
+        if($filter){
+            for ($i=1; $i <= 6; $i++) { 
+                $id_form = "filter" . $i;
+                if($request->input($id_form) == 1){
+                    $array[$i] = $i;
+                }
+            }
+
+            if(count($array) > 0){
+                $idsList = implode(",",$array);
+                $posts = Post::whereRaw("habit_id in (" . $idsList . ")")->get();
+                $data = ["posts" => $posts,"filters" => $array];
+                return view("read.index",$data);
+            }
+        }
+
         $posts = Post::all();
-        $data = ["posts" => $posts];
+        $data = ["posts" => $posts, "filters" => null];
         return view("read.index",$data);
     }
 
