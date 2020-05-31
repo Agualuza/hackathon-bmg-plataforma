@@ -22,7 +22,7 @@
                       <i class="now-ui-icons users_circle-08"></i>
                     </span>
                   </div>
-                  <input type="email" name="email" class="form-control" placeholder="Email">
+                  <input type="email" name="email" class="form-control" value="enzo@fkmail.bmg" placeholder="Email">
                 </div>
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
@@ -30,7 +30,7 @@
                       <i class="now-ui-icons text_caps-small"></i>
                     </span>
                   </div>
-                  <input type="password" name="password" placeholder="Password" class="form-control" />
+                  <input type="password" name="password" placeholder="Password" value="123456" class="form-control" />
                 </div>
               </div>
               <div class="card-footer text-center">
